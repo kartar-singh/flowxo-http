@@ -45,10 +45,28 @@ exports.sendMessageToFxo =  async (req, res) => {
       res.status(500).send('Internal Server Error');
     }
   }
+  exports.conversationData = async (req, res) => {
   
+    const url = 'https://flowxo.com/api/conversations/{kartar@singh.com}';
+    const secret = 'db55d9faba79d0d17c4c65fa4fc0f82c4f11cf253987d5b9';
+  
+    const opts = {
+      headers: {
+        Authorization: `Bearer ${secret}`
+      }
+    };
+  
+    try {
+         await axios.get(url, opts);
+        res.send({ ok: true });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+      }
+  }
   
   let messages = [];
-  
+  console.log('messages>>>>',message)
   exports.receveMessageFxo = async (request, response) => {
       console.log("this request is from bot >>>>0",request.body);
       messages.push({from:'bot', message:request.body});
